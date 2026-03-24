@@ -2,7 +2,7 @@
 //1.Nosso jogo deve aceitar o input do jogador e exibir o valor digitado
 //2.Nosso jogo deve gerar um número secreto aleatório
 //3.Nosso jogo deve Validar a tentativa do jogador e exibir uma mensagem
-
+//4.nosso jogo deve permitir multiplas tentativas
 using System;
 
 // eu quero usar a biblioteca padrão do sistema relacionada a criptografia
@@ -42,10 +42,10 @@ else
      Console.WriteLine("-------------------------------------"); 
 }
      Console.WriteLine("Deseja continuar? (S/N): ");
-     string? opcaoContinuar = Console.ReadLine();
+     string? opcaoContinuar = Console.ReadLine(); 
 
      
-     if (opcaoContinuar.ToUpper() !="S")
+     if (opcaoContinuar?.ToUpper() !="S")
      {
           break;
      }
