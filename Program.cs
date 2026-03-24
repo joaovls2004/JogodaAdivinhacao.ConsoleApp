@@ -8,6 +8,8 @@
 
 //v2
 //1. Nosso jogo deve implementar a funcionalidade de Dificuldade e Tentativas limitadas
+//2. Nosso jogo deve implementar uma funcionalidade de Validação de Números Repetidos
+//3. Nosso jogo deve implementar uma funcionalidade de Pontuação
 
 using System;//biblioteca padrão do sistema com classes gnéricas
 using System.Diagnostics;
@@ -15,7 +17,11 @@ using System.Security.Cryptography; // biblioteca padrão do sistema relacionada
 
 while(true == true)
 {
- //Console.Clear();
+    int[] numerosDigitados = new int [100];
+    int contadorNumerosDigitados = 0; 
+    int Pontuacao = 1000;
+
+ Console.Clear();
 
 Console.WriteLine("-------------------------------------");
 Console.WriteLine("jogo de Adivinhação");
@@ -72,6 +78,41 @@ string? chute = Console.ReadLine();
 
 int numroDigitado = Convert.ToInt32(chute);
 
+bool numeroRepetido = false;
+
+for(int contadorNumeros = 0; contadorNumeros < numerosDigitados.Length; contadorNumeros++)
+          {
+             if (numerosDigitados[contadorNumeros] == numroDigitado)
+               {
+                    numeroRepetido = true;
+                    break;
+               }  
+          }
+    if (numeroRepetido == true)
+    {
+      Console.WriteLine("-------------------------------------");
+      Console.WriteLine("você já digitou esse número, tente novamente.");
+      Console.WriteLine("-------------------------------------");
+      Console.WriteLine("Digite ENTER para continuar...");
+      Console.ReadLine();
+
+      tentativa--;
+
+      continue;
+
+    }
+if(contadorNumerosDigitados < numerosDigitados.Length)
+          {
+               numerosDigitados[contadorNumerosDigitados] = numroDigitado;
+
+               contadorNumerosDigitados++;
+          }
+
+numerosDigitados[contadorNumerosDigitados] = numroDigitado;
+
+contadorNumerosDigitados++;
+
+
 if(numroDigitado == numeroAleatorio)
 {
      Console.WriteLine("-------------------------------------");
@@ -92,16 +133,35 @@ else
      Console.WriteLine("O número digitado  foi menor que o número secreto!");
      Console.WriteLine("-------------------------------------"); 
 }
+
+int diferencaNumerica = Math.Abs(numeroAleatorio - numroDigitado);  // 90 - 100 = -10;
+
+     if (diferencaNumerica >= 10)
+          {
+             Pontuacao -= 100; 
+          }
+     else if (diferencaNumerica >= 5)
+          {
+               Pontuacao -= 50;
+          } 
+     else
+          {
+               Pontuacao -= 20;
+          } 
+     Console.WriteLine("Sua pontuação é:" + Pontuacao);
+     Console.WriteLine("-------------------------------------"); 
+     Console.ReadLine();   
+     Console.WriteLine("Digite ENTER para continuar...");
+     Console.ReadLine();
+
      if (tentativa == tentativaMaximas)
           {
               Console.WriteLine($"Você usou todas as suas tentativas! O número era {numeroAleatorio}.");
               Console.WriteLine("-------------------------------------");
               break;   
-          } 
-           Console.ReadLine();   
-}
-
-
+          }        
+              
+} 
      Console.WriteLine("Deseja continuar? (S/N): ");
      string? opcaoContinuar = Console.ReadLine(); 
 
